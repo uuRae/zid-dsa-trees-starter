@@ -44,6 +44,7 @@ class BinarySearchTree {
       }
     }
   }
+  
   find(key) {
     // If the item is found at the root, then return that value.
     if (this.key == key) {
@@ -68,6 +69,7 @@ class BinarySearchTree {
       throw new Error("Key Not Found");
     }
   }
+
   remove(key) {
     if (this.key == key) {
       if (this.left && this.right) {
@@ -97,6 +99,58 @@ class BinarySearchTree {
       throw new Error("Key Not Found");
     }
   }
+
+  dfsInOrder(values = []) {
+    // First, process the left node recursively
+    if (this.left) {
+      values = this.left.dfsInOrder(values);
+    }
+
+    // Next, process the current node
+    values.push(this.value);
+
+    // Finally, process the right node recursively
+    if (this.right) {
+      values = this.right.dfsInOrder(values);
+    }
+
+    return values;
+  }
+
+  dfsPreOrder(values = []) {
+    // First, process the current node
+    values.push(this.value);
+
+    // Next, process the left node recursively
+    if (this.left) {
+      values = this.left.dfsPreOrder(values);
+    }
+
+    // Finally, process the right node recursively
+    if (this.right) {
+      values = this.right.dfsPreOrder(values);
+    }
+
+    return values;
+  }
+
+  dfsPostOrder(values = []) {
+    // First, process the left node recursively
+    if (this.left) {
+      values = this.left.dfsPostOrder(values);
+    }
+
+    // Next, process the right node recursively
+    if (this.right) {
+      values = this.right.dfsPostOrder(values);
+    }
+
+    // Finally, process the current node
+    values.push(this.value);
+
+    return values;
+  }
+
   _replaceWith(node) {
     if (this.parent) {
       if (this == this.parent.left) {
